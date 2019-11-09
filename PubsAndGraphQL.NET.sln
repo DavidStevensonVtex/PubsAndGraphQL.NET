@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pubs", "Pubs\Pubs.csproj", "{BFD03671-A398-46E0-897C-A7774D22C83F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pubs", "Pubs\Pubs.csproj", "{BFD03671-A398-46E0-897C-A7774D22C83F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pubs.UnitTests.GraphTypeFirst", "Pubs.UnitTests\Pubs.UnitTests.GraphTypeFirst.csproj", "{9B02D868-8252-4B8C-BE98-887DCF6CBA07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pubs.UnitTests.GraphTypeFirst", "Pubs.UnitTests\Pubs.UnitTests.GraphTypeFirst.csproj", "{9B02D868-8252-4B8C-BE98-887DCF6CBA07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pubs.GraphTypeFirst", "PubsGraphTypeFirst\Pubs.GraphTypeFirst.csproj", "{56B4FF51-8C0A-4D66-A2E8-2CDF06DDF47F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pubs.GraphTypeFirst", "PubsGraphTypeFirst\Pubs.GraphTypeFirst.csproj", "{56B4FF51-8C0A-4D66-A2E8-2CDF06DDF47F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pubs.SchemaFirst", "Pubs.SchemaFirst\Pubs.SchemaFirst.csproj", "{DEB031D7-0C88-449A-9F04-7085461D45FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pubs.SchemaFirst", "Pubs.SchemaFirst\Pubs.SchemaFirst.csproj", "{DEB031D7-0C88-449A-9F04-7085461D45FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pubs.UnitTests.SchemaFirst", "Pubs.UnitTests.SchemaFirst\Pubs.UnitTests.SchemaFirst.csproj", "{B93BFD95-78D7-49D7-A7A4-78CA9CBC7538}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pubs.UnitTests.SchemaFirst", "Pubs.UnitTests.SchemaFirst\Pubs.UnitTests.SchemaFirst.csproj", "{B93BFD95-78D7-49D7-A7A4-78CA9CBC7538}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pubs.Web", "Pubs.Web\Pubs.Web.csproj", "{298FD3C5-0A67-42A3-9431-181C737724C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{B93BFD95-78D7-49D7-A7A4-78CA9CBC7538}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B93BFD95-78D7-49D7-A7A4-78CA9CBC7538}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B93BFD95-78D7-49D7-A7A4-78CA9CBC7538}.Release|Any CPU.Build.0 = Release|Any CPU
+		{298FD3C5-0A67-42A3-9431-181C737724C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{298FD3C5-0A67-42A3-9431-181C737724C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{298FD3C5-0A67-42A3-9431-181C737724C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{298FD3C5-0A67-42A3-9431-181C737724C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

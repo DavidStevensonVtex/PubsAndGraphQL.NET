@@ -1,0 +1,112 @@
+Example #1: Pre-loaded
+
+{
+  hero {
+    name
+    id
+    __typename
+    appearsIn
+    friends {
+      name
+    }
+  }
+}
+
+
+Example #2: Fields
+https://graphql.org/learn/queries/#fields
+
+{
+  human(id: "1") {
+    id
+    name  
+    appearsIn
+    friends {
+      name
+    }
+  }
+}
+
+Example #3: Aliases
+https://graphql.org/learn/queries/#aliases
+
+{
+  empireHero: human(id:"1"){
+    name
+  }
+  jediHero: droid(id:"3") {
+    name
+  }
+}
+
+Example #4: Fragments
+https://graphql.org/learn/queries/#fragments
+
+{
+  empireHero: human(id:"1"){
+        ...comparisonFields
+  }
+  jediHero: droid(id:"3") {
+        ...comparisonFields
+  }
+}
+
+
+fragment comparisonFields on Character {
+  name
+  appearsIn
+  friends {
+    name
+  }
+}
+
+
+Example #5: Operation Names
+
+query HeroNameAndFriends {
+  hero {
+    name
+    friends {
+      name
+    }
+  }
+}
+
+
+Example #6: Variables
+
+query HeroNameAndFriends($id: String!) {
+  human(id:$id) {
+    name
+    friends {
+      name
+    }
+  }
+}
+
+Variables:
+
+{
+  "id": "1"
+}
+
+
+Example #7: Directives 
+
+query HeroNameAndFriends($id: String!, $withFriends:Boolean!) {
+  human(id:$id) {
+    name
+    friends @include(if:$withFriends) {
+      name
+    }
+  }
+}
+
+Global Variables:
+
+{
+  "id": "1",
+  "withFriends": false
+}
+
+withFriends can be false or true.

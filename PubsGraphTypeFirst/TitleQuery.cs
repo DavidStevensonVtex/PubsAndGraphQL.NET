@@ -3,7 +3,7 @@ using GraphQL.Types;
 
 namespace Pubs.Types
 {
-    public class TitleQuery : ObjectGraphType<Title>
+    public class TitleQuery : ObjectGraphType<TitleType>
     {
         public TitleQuery()
         {

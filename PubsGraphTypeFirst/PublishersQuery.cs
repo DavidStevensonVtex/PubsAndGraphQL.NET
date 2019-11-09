@@ -1,4 +1,5 @@
 ﻿using GraphQL.Types;
+using System.Linq;
 
 namespace Pubs.Types
 {
@@ -11,7 +12,7 @@ namespace Pubs.Types
             Field<ListGraphType<PublisherType>>(
                 "publishers",
                 description: "All publishers",
-                resolve: _ => PubsData.Publishers);
+                resolve: _ => PubsData.Publishers.OrderBy(p => p.Name));
         }
     }
 }

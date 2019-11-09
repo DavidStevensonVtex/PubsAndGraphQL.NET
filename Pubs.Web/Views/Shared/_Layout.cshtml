@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+</head>
+<body>
+    <div><h1>@ViewBag.Title</h1></div>
+    <div style="float:left; width: 1.5in;">
+        <b>
+            <a href="/authors">Authors</a><br />
+            <a href="/publishers">Publishers</a><br />
+            <a href="/titles">Titles</a><br />
+        </b>
+    </div>
+    <div style="float:left; width: 7in;">
+        @RenderBody()
+    </div>
+</body>
+</html>
