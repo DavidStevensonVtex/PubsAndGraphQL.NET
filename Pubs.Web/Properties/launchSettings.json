@@ -19,7 +19,7 @@
     "Pubs.Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "Titles",
+      "launchUrl": "Authors",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

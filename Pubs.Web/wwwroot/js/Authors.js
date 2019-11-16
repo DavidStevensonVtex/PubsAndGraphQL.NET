@@ -8,8 +8,11 @@ function Startup(authors) {
 function DisplayAllAuthors(authors) {
     // console.log("DisplayAllAuthors");
     // console.log(authors);
-    var html = "<table class='table-dark' style='width: 100%'>";
-    html += "<thead><tr><th>Author Id</th><th>Name</th><th style='width: 2in'>Phone</th><th style='width: 4in'>Address</th></tr></thead>";
+    var html = "";
+    console.log(html);
+
+    html += "<table class='table table-condensed' style='width: 100%'>";
+    html += "<thead style='background-color: darkblue; color: white;'><tr><th>Author Id</th><th>Name</th><th style='width: 2in'>Phone</th><th style='width: 4in'>Address</th></tr></thead>";
     html += "<tbody>";
     authors.forEach(function (author, index) {
         html += "<tr>";
@@ -18,6 +21,26 @@ function DisplayAllAuthors(authors) {
         html += "<td>" + author.phone + "</td>";
         html += "<td>" + author.address + ", " + author.city + ", " + author.state + "  " + author.zip + "</td>";
         html += "</tr>";
+        if (author.titles !== undefined) {
+            html += "<tr>";
+            html += "<td>&nbsp;</td>";
+            html += "<td colspan='4'>";
+
+            html += "<table class='table' style='width: 100%'>";
+            html += "<thead style='background-color: darkgreen; color: white;'><th>Title</th><th>Type</th><th>Price</th></thead>";
+            console.log("Titles are defined");
+            author.titles.forEach(function (title, index) {
+                html += "<tr>";
+                html += "<td style='width: 3.5in'>" + title.title + "</td>";
+                html += "<td style='width: 1.5in'>" + title.type + "</td>";
+                html += "<td style='width: 0.5in; text-align: right;'>$" + title.price + "</td>";
+                html += "</tr>";
+            });
+            html += "</td>";
+            html += "</tr>";
+            html+= "</table>";
+            html += "</tr>";
+        }
     });
     html += "</tbody>";
     html += "</table>";
@@ -35,8 +58,8 @@ function BuildSelectAuthors(authors) {
 }
 
 function GetAllAuthors(processDataFunction) {
-    var withTitles = $('#includeTitles').is(":checked")
-    console.log("GetAuthor: withTitles: " + withTitles);
+    var withTitles = $('#includeTitles').is(":checked");
+    console.log("GetAllAuthors: withTitles: " + withTitles);
     var data = {
         "operationName": "AuthorsQuery",
         "query": `  query AuthorsQuery ($withTitles: Boolean!)
@@ -102,7 +125,7 @@ function DisplaySingleAuthor(author) {
 
 function GetAuthor(authorId, processDataFunction) {
     // console.log("GetAuthor: " + authorId);
-    var withTitles = $('#includeTitles').is(":checked")
+    var withTitles = $('#includeTitles').is(":checked");
     console.log("GetAuthor: withTitles: " + withTitles);
     var data = {
         "operationName": "AuthorQuery",
