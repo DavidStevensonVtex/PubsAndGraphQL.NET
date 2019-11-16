@@ -3,13 +3,23 @@
     ViewData["Title"] = "Authors";
 }
 
-
 <script src="~/js/Authors.js"></script>
-<button id="allAuthorsButton">All Authors</button>
 
-<select id="authorSelect"></select>
+<div class="container-fluid">
+    <div class="form-group row">
+        <button type="button" class="col-sm-3 btn btn-primary" id="allAuthorsButton">All Authors</button>
+        <label for="authorSelect" class="col-sm-3 ">Select author:</label>
+        <select class="form-control col-sm-6" id="authorSelect"></select>
+    </div>
+    <div class="form-check-inline row">
+        <label class="form-check-label">
+            <input id="includeTitles" type="checkbox" class="form-check-input" value="">Include Titles
+        </label>
 
-<br />
-<br />
+    </div>
 
-<div id="authors" style="width: 10in;"></div>
+    <br />
+
+    <div id="authors" style="width: 10in;"></div>
+
+</div>

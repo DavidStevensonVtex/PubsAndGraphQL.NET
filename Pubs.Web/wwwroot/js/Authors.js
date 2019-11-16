@@ -35,9 +35,24 @@ function BuildSelectAuthors(authors) {
 }
 
 function GetAllAuthors(processDataFunction) {
+    var withTitles = $('#includeTitles').is(":checked")
+    console.log("GetAuthor: withTitles: " + withTitles);
     var data = {
         "operationName": "AuthorsQuery",
-        "query": "query AuthorsQuery { authors { authorId lastName firstName phone address city state zip contract } }"
+        "query": `  query AuthorsQuery ($withTitles: Boolean!)
+                    { 
+                        authors 
+                        { 
+                            authorId lastName firstName phone address city state zip contract 
+                            titles @include(if: $withTitles)
+                            {
+                                titleId title price pubId type pubDate notes advance royalty ytdSales 
+                            }
+                        } 
+                    }`,
+        "variables": {
+            "withTitles": withTitles
+        }
     };
 
     $.ajax({
@@ -87,11 +102,25 @@ function DisplaySingleAuthor(author) {
 
 function GetAuthor(authorId, processDataFunction) {
     // console.log("GetAuthor: " + authorId);
-    var variables = { "authorId": authorId };
+    var withTitles = $('#includeTitles').is(":checked")
+    console.log("GetAuthor: withTitles: " + withTitles);
     var data = {
         "operationName": "AuthorQuery",
-        "query": "query AuthorQuery($authorId: String!) { author(id: $authorId)  { authorId lastName firstName phone address city state zip contract } }",
-        "variables": { "authorId": authorId }
+        "query": `  query AuthorQuery($authorId: String!, $withTitles: Boolean!)
+                    {
+                        author(id: $authorId)
+                        {
+                            authorId lastName firstName phone address city state zip contract
+                            titles @include(if: $withTitles)
+                            {
+                                titleId title price pubId type pubDate notes advance royalty ytdSales 
+                            }
+                        }
+                    }`,
+        "variables": {
+            "authorId": authorId,
+            "withTitles": withTitles
+        }
     };
 
     $.ajax({
@@ -113,9 +142,9 @@ function GetAuthor(authorId, processDataFunction) {
 
 
 $(document).ready(function () {
-    console.log("ready!");
+    // console.log("ready!");
 
-    GetAllAuthors(Startup);
+    // GetAllAuthors(Startup);
     // GetAllAuthors(DisplayAllAuthors);
     GetAuthorIdAndName(BuildSelectAuthors);
 
