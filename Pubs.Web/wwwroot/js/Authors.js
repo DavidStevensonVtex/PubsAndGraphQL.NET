@@ -20,7 +20,8 @@ function DisplayAllAuthors(authors) {
 
             html += "<table class='table' style='width: 100%'>";
             html += "<thead style='background-color: darkgreen; color: white;'><th>Title</th><th>Type</th><th>Price</th></thead>";
-            console.log("Titles are defined");
+            html += "<tbody>";
+
             author.titles.forEach(function (title, index) {
                 html += "<tr>";
                 html += "<td style='width: 3.5in'>" + title.title + "</td>";
@@ -30,6 +31,7 @@ function DisplayAllAuthors(authors) {
             });
             html += "</td>";
             html += "</tr>";
+            html += "</tbody>";
             html+= "</table>";
             html += "</tr>";
         }

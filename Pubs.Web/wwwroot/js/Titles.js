@@ -1,15 +1,10 @@
 ﻿var url = "/api/graphql";
 
-function Startup(titles) {
-    // DisplayAllTitles(titles);
-    BuildSelectTitles(titles);
-}
-
 function DisplayAllTitles(titles) {
-    // console.log("DisplayAllTitles");
-    // console.log(titles);
-    var html = "<table class='table-dark' style='width: 100%;'>";
-    html += "<thead><tr><th>Title Id</th><th>Title</th><th>Price</th><th>Title Id</th><th>Type</th><th>Publication Date</th></tr></thead>";
+    var html = "";
+
+    html += "<table class='table table-condensed' style='width: 100%'>";
+    html += "<thead style='background-color: darkblue; color: white;'><th>Title Id</th><th>Title</th><th>Price</th><th>Type</th><th>Pub Date</th></thead>";
     html += "<tbody>";
     titles.forEach(function (title, index) {
         var price;
@@ -23,10 +18,61 @@ function DisplayAllTitles(titles) {
         html += "<td>" + title.titleId + "</td>";
         html += "<td>" + title.title + "</td>";
         html += "<td style='text-align: right;'>" + price + "</td>";
-        html += "<td>" + title.titleId + "</td>";
         html += "<td>" + title.type + "</td>";
         html += "<td>" + title.pubDate + "</td>";
         html += "</tr>";
+
+        // Note: There is only one publisher for a title.
+        if (title.publisher !== undefined) {
+            var publisher = title.publisher;
+            html += "<tr>";
+            html += "<td>&nbsp;</td>";
+            html += "<td colspan='4'>";
+
+            html += "<table class='table table-condensed' style='width: 100%'>";
+            html += "<thead style='background-color: darkred; color: white;'><th>Pub Id</th><th>Name</th><th>City</th><th>State</th><th>Country</th></thead>";
+            html += "<tbody>";
+            html += "<tr>";
+            html += "<td>" + publisher.pubId + "</td>";
+            html += "<td>" + publisher.name + "</td>";
+            html += "<td>" + publisher.city + "</td>";
+            html += "<td>" + publisher.state + "</td>";
+            html += "<td>" + publisher.country + "</td>";
+            html += "</tr>";
+            html += "</tbody>";
+            html += "</table>";
+
+            html += "</td>";
+            html += "</tr>";
+        }
+
+        if (title.authors !== undefined) {
+            html += "<tr>";
+            html += "<td>&nbsp;</td>";
+            html += "<td colspan='4'>";
+
+            html += "<table class='table table-condensed' style='width: 100%'>";
+            html += "<thead style='background-color: darkgreen; color: white;'><th>Author Id</th><th>Name</th><th>Phone</th><th>Address</th></thead>";
+            html += "<tbody>";
+            html += "<tr>";
+
+            title.authors.forEach(function (author, index) {
+                html += "<tr>";
+                html += "<td>" + author.authorId + "</td>";
+                html += "<td>" + author.lastName + ", " + author.firstName + "</td>";
+                html += "<td>" + author.phone + "</td>";
+                html += "<td>" + author.address + ", " + author.city + ", " + author.state + "  " + author.zip + "</td>";
+                html += "</tr>";
+            });
+
+            html += "</tr>";
+            html += "</tbody>";
+            html += "</table>";
+
+            html += "</td>";
+            html += "</tr>";
+
+        }
     });
     html += "</tbody>";
     html += "</table>";
@@ -34,8 +80,6 @@ function DisplayAllTitles(titles) {
 }
 
 function BuildSelectTitles(titles) {
-    // console.log("BuildSelectTitles");
-    // console.log(titles);
     var html = "<option selected disabled>Please select an title</option>";
     titles.forEach(function (title, index) {
         html += "<option value='" + title.titleId + "'>" + title.title + "</option>";
@@ -44,9 +88,31 @@ function BuildSelectTitles(titles) {
 }
 
 function GetAllTitles(processDataFunction) {
+    var withAuthors = $('#includeAuthors').is(":checked");
+    var withPublisher = $('#includePublisher').is(":checked");
+    console.log("Get All Titles: withAuthors: " + withAuthors + "  withPublisher: " + withPublisher);
+
     var data = {
         "operationName": "TitlesQuery",
-        "query": "query TitlesQuery { titles { titleId title price titleId type pubDate notes advance royalty ytdSales } }"
+        "query": `  query TitlesQuery ($withAuthors: Boolean!, $withPublisher: Boolean!)
+                    {
+                        titles
+                        {
+                            titleId title price pubId type pubDate notes advance royalty ytdSales
+                            authors @include(if: $withAuthors)
+                            {
+                                 authorId lastName firstName phone address city state zip contract
+                            }
+                            publisher @include(if: $withPublisher)
+                            {
+                                pubId name city state country
+                            }
+                        } 
+                    }`,
+        "variables": {
+            "withAuthors": withAuthors,
+            "withPublisher": withPublisher
+        }
     };
 
     $.ajax({
@@ -55,12 +121,11 @@ function GetAllTitles(processDataFunction) {
         async: false,
         data: JSON.stringify(data),
         success: function (data) {
-            // console.log("success!");
             processDataFunction(data.data.titles);
         },
         error: function (data) {
-            // console.log("error!");
-            // console.log(data);
+             console.log("error!");
+             console.log(data);
         },
         contentType: 'application/json'
     });
@@ -78,12 +143,11 @@ function GetTitleIdAndName(processDataFunction) {
         async: false,
         data: JSON.stringify(data),
         success: function (data) {
-            // console.log("success!");
             processDataFunction(data.data.titles);
         },
         error: function (data) {
-            // console.log("error!");
-            // console.log(data);
+             console.log("error!");
+             console.log(data);
         },
         contentType: 'application/json'
     });
@@ -95,12 +159,32 @@ function DisplaySingleTitle(title) {
 }
 
 function GetTitle(titleId, processDataFunction) {
-    // console.log("GetTitle: " + titleId);
-    var variables = { "titleId": titleId };
+    var withAuthors = $('#includeAuthors').is(":checked");
+    var withPublisher = $('#includePublisher').is(":checked");
+    console.log("Get All Titles: withAuthors: " + withAuthors + "  withPublisher: " + withPublisher);
+
     var data = {
         "operationName": "TitleQuery",
-        "query": "query TitleQuery($titleId: String!) { title(id: $titleId)  { titleId title price titleId type pubDate notes advance royalty ytdSales } }",
-        "variables": { "titleId": titleId }
+        "query": `  query TitleQuery($titleId: String!, $withPublisher: Boolean!, $withAuthors: Boolean!) 
+                    {
+                        title(id: $titleId)
+                        {
+                            titleId title price titleId type pubDate notes advance royalty ytdSales
+                            authors @include(if: $withAuthors)
+                            {
+                                 authorId lastName firstName phone address city state zip contract
+                            }
+                            publisher @include(if: $withPublisher)
+                            {
+                                pubId name city state country
+                            }
+                        }
+                    }`,
+        "variables": {
+            "titleId": titleId,
+            "withAuthors": withAuthors,
+            "withPublisher": withPublisher
+        }
     };
 
     $.ajax({
@@ -109,12 +193,11 @@ function GetTitle(titleId, processDataFunction) {
         async: false,
         data: JSON.stringify(data),
         success: function (data) {
-            // console.log("GetTitle: success!");
             processDataFunction(data.data.title);
         },
         error: function (data) {
-            // console.log("error!");
-            // console.log(data);
+             console.log("error!");
+             console.log(data);
         },
         contentType: 'application/json'
     });
@@ -122,23 +205,16 @@ function GetTitle(titleId, processDataFunction) {
 
 
 $(document).ready(function () {
-    // console.log("ready!");
-
-    GetAllTitles(Startup);
-    // GetAllTitles(DisplayAllTitles);
     GetTitleIdAndName(BuildSelectTitles);
 
     $("#allTitlesButton").click(function () {
-        // console.log("allTitlesButton clicked");
         $("#titleSelect")[0].selectedIndex = 0;
         GetAllTitles(DisplayAllTitles);
     });
 
     $("#titleSelect").change(function () {
-        // console.log("Title Selected");
         var titleId = $(this).val();
         GetTitle(titleId, DisplaySingleTitle);
         var title = $("#titleSelect option:selected").text();
-        // console.log("Selected Title: " + title + "  Selected Title Id: " + titleId);
     });
 });
