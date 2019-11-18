@@ -1,19 +1,11 @@
 ﻿var url = "/api/graphql";
 
-function Startup(authors) {
-    // DisplayAllAuthors(authors);
-    BuildSelectAuthors(authors);
-}
-
 function DisplayAllAuthors(authors) {
-    // console.log("DisplayAllAuthors");
-    // console.log(authors);
     var html = "";
-    console.log(html);
-
     html += "<table class='table table-condensed' style='width: 100%'>";
     html += "<thead style='background-color: darkblue; color: white;'><tr><th>Author Id</th><th>Name</th><th style='width: 2in'>Phone</th><th style='width: 4in'>Address</th></tr></thead>";
     html += "<tbody>";
+
     authors.forEach(function (author, index) {
         html += "<tr>";
         html += "<td>" + author.authorId + "</td>";
@@ -48,8 +40,6 @@ function DisplayAllAuthors(authors) {
 }
 
 function BuildSelectAuthors(authors) {
-    // console.log("BuildSelectAuthors");
-    // console.log(authors);
     var html = "<option selected disabled>Please select an author</option>";
     authors.forEach(function (author, index) {
         html += "<option value='" + author.authorId + "'>" + author.lastName + ", " + author.firstName + "</option>";
@@ -84,7 +74,6 @@ function GetAllAuthors(processDataFunction) {
         async: false,
         data: JSON.stringify(data),
         success: function (data) {
-            // console.log("success!");
             processDataFunction(data.data.authors);
         },
         error: function (data) {
@@ -124,7 +113,6 @@ function DisplaySingleAuthor(author) {
 }
 
 function GetAuthor(authorId, processDataFunction) {
-    // console.log("GetAuthor: " + authorId);
     var withTitles = $('#includeTitles').is(":checked");
     console.log("GetAuthor: withTitles: " + withTitles);
     var data = {
@@ -152,7 +140,6 @@ function GetAuthor(authorId, processDataFunction) {
         async: false,
         data: JSON.stringify(data),
         success: function (data) {
-            //console.log("GetAuthor: success!");
             processDataFunction(data.data.author);
         },
         error: function (data) {
@@ -165,20 +152,14 @@ function GetAuthor(authorId, processDataFunction) {
 
 
 $(document).ready(function () {
-    // console.log("ready!");
-
-    // GetAllAuthors(Startup);
-    // GetAllAuthors(DisplayAllAuthors);
     GetAuthorIdAndName(BuildSelectAuthors);
 
     $("#allAuthorsButton").click(function () {
-        // console.log("allAuthorsButton clicked");
         $("#authorSelect")[0].selectedIndex = 0;
         GetAllAuthors(DisplayAllAuthors);
     });
 
     $("#authorSelect").change(function () {
-        // console.log("Author Selected");
         var authorId = $(this).val();
         GetAuthor(authorId, DisplaySingleAuthor);
         var author = $("#authorSelect option:selected").text();

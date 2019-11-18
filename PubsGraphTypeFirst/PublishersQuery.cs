@@ -12,7 +12,8 @@ namespace Pubs.Types
             Field<ListGraphType<PublisherType>>(
                 "publishers",
                 description: "All publishers",
-                resolve: _ => PubsData.Publishers.OrderBy(p => p.Name));
+                resolve: _ => 
+                    PubsData.Publishers.OrderBy(p => p.Name));
         }
     }
 }
