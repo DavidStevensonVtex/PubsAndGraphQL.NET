@@ -4,11 +4,21 @@
 }
 
 <script src="~/js/Titles.js"></script>
-<button id="allTitlesButton">All Titles</button>
 
-<select id="titleSelect"></select>
+<div class="container-fluid">
+    <div class="form-group row">
+        <button type="button" class="col-2 btn btn-primary" id="allTitlesButton">All Titles</button>
+        <label for="titleSelect" class="col-2" style="text-align: right;">Select title:</label>
+        <select class="form-control col-6" id="titleSelect"></select>
+    </div>
+    <div class="form-check-inline row">
+        <label class="form-check-label">
+            <input id="includeAuthors" type="checkbox" class="form-check-input" value="">Include Authors
+        </label>
+    </div>
 
-<br />
-<br />
+    <br />
 
-<div id="titles" style="width: 10in;"></div>
+    <div id="titles"></div>
+
+</div>

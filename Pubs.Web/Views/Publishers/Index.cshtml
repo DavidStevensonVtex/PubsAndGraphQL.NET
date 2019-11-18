@@ -4,11 +4,21 @@
 }
 
 <script src="~/js/Publishers.js"></script>
-<button id="allPublishersButton">All Publishers</button>
 
-<select id="publisherSelect"></select>
+<div class="container-fluid">
+    <div class="form-group row">
+        <button type="button" class="col-2 btn btn-primary" id="allPublishersButton">All Publishers</button>
+        <label for="authorSelect" class="col-2" style="text-align: right;">Select publisher:</label>
+        <select class="form-control col-6" id="publisherSelect"></select>
+    </div>
+    <div class="form-check-inline row">
+        <label class="form-check-label">
+            <input id="includeTitles" type="checkbox" class="form-check-input" value="">Include Titles
+        </label>
+    </div>
 
-<br />
-<br />
+    <br />
 
-<div id="publishers" style="width: 10in;"></div>
+    <div id="publishers"></div>
+
+</div>
