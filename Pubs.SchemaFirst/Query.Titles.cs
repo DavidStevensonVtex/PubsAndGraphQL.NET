@@ -8,7 +8,7 @@ namespace Pubs.SchemaFirst
     public partial class Query
     {
         [GraphQLMetadata("titles")]
-        public Title[] GetTitles(string id)
+        public Title[] GetTitles()
         {
             return PubsData.Titles.ToArray();
         }
