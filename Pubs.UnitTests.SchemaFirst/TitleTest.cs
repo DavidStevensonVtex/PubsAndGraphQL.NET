@@ -29,7 +29,6 @@ namespace Pubs.UnitTests.SchemaFirst
             // The id parameter here has to match the id parameter in the C# GetAuthor method.
             string json = schema.Execute(_ =>
             {
-                //_.Query = $" {{ title(id: \"{titleId}\") {{ titleId title pubId type pubDate notes price advance royalty ytdSales }} }}";
                 _.Query =
                     @"query TitleQuery 
                     {

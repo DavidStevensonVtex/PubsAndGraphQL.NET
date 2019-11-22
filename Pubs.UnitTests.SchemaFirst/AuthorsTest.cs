@@ -21,7 +21,7 @@ namespace Pubs.UnitTests.SchemaFirst
             {
                 //_.Query = query;
                 _.Query =
-                    @"query AuthorQuery 
+                    @"query AuthorsQuery 
                     {
                         authors
                         { 

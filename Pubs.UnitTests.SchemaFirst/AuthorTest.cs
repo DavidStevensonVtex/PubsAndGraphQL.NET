@@ -19,7 +19,6 @@ namespace Pubs.UnitTests.SchemaFirst
             ISchema schema = PubsSchema.GetSchema();
 
             // The id parameter here has to match the id parameter in the C# GetAuthor method.
-            string query = $" {{ author(id: \"{authorId}\") {{ authorId lastName firstName phone address city state zip contract }} }}";
             string json = schema.Execute(_ =>
             {
                 //_.Query = query;
